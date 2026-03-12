@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lotto-Jebal</title>
+    <script>
+      function getLotto() {
+        let bigNum = 1000000000000000000;
+        let lotto = [];
+        for (let l = 0; l < 6; l++) {
+          let num = Math.floor(((Math.random() * bigNum) % 45) + 1);
+          if (lotto.indexOf(num) == -1) {
+            lotto.push(num);
+          } else {
+            l--;
+          }
+        }
+        function getBallColor(num) {
+          if (num <= 10) return 'red';
+          if (num <= 20) return 'yellow';
+          if (num <= 30) return 'blue';
+          if (num <= 40) return 'green';
+          return 'violet';
+        }
+        let text = '';
+        for (let i = 0; i < lotto.length; i++) {
+          let color = getBallColor(lotto[i]);
+          text += "<div class='ball " + color + "'>" + lotto[i] + '</div>';
+        }
+        document.getElementById('lottoNum').innerHTML = text;
+      }
+    </script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: aliceblue;
+        text-align: center;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 30px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo img {
+        width: 55px;
+        height: 55px;
+      }
+      .logo h3 {
+        margin: 0;
+        color: red;
+        font-size: 40px;
+      }
+      .machine {
+        margin-top: 30px;
+      }
+
+      .circle1 {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background-color: rgb(253, 255, 110);
+        margin: auto;
+        border: 8px solid rgb(253, 255, 110);
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .inner-circle {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.9);
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      }
+      p {
+        font-size: 50px;
+        color: black;
+        position: relative;
+      }
+      .triangle {
+        width: 0;
+        height: 0;
+        border-left: 60px solid transparent;
+        border-right: 60px solid transparent;
+        border-bottom: 90px solid #a7a7a0;
+        margin: auto;
+        margin-top: -50px;
+      }
+      #lottoNum {
+        margin-top: 50px;
+        min-height: 100px;
+      }
+      .ball {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        font-weight: bold;
+        color: white;
+        margin: 10px;
+        opacity: 0;
+        animation: pop 0.6s forwards;
+      }
+      .red {
+        background-color: #eb5757;
+      }
+      .yellow {
+        background-color: #f3c742;
+      }
+
+      .blue {
+        background-color: #4294f1;
+      }
+
+      .green {
+        background-color: #07c700;
+      }
+
+      .violet {
+        background-color: #a830c6;
+      }
+      @keyframes pop {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .button {
+        margin-top: 20px;
+        width: 140px;
+        height: 45px;
+        border: none;
+        border-radius: 10px;
+        background-color: #1f4c8f;
+        color: white;
+        font-size: 17px;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background-color: #2e67ba;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAE4klEQVR4nO2aW4hVVRjHf50ZnTGxJDFK5ymIICIwIiR16EGCsqJQu4gFRZBJGkWaVNANm8yZbhI9RA/RQ0W9BfViUM2YD12g6CXCyjQ7ni5UNKFNzY4F/0WLxdmz99pnrzP7DPsPC2b22vPd5vu+9e3/3lCjRo0aNbqCPmAYGAMOAseBv7WO69oosEb3zhksAHYBLSDJuUxAdupvexrXA0cDHPfX98AGehANYMRz5kPgBmAZMB9YDtwIjGcEYRrYLZk9gQbwhuPAFLDF2V8HvAxsUyAMtuq+mQLxeq8EYcQz3HX+QuAf4Gv9Z01DxAlCVkmYTKh8zSfO+sDb3wH8rC7/LrDf25/IUQ7rqSgWtGl4puZdbFEGvAT8BTzu7d+UszEOUkHsamOsaXhu7U9lOLI85+lgMqlS6Es5522TM/gMOAQsBW7X/mWenIGcAWhWbVgaTjHUzYBJdX+DS7V/nSdnKGBGWE2FMJZipDnnLT4GfgceAT5VQJZ4cjYFBGAvFcLBFCPNkGNxvhxPFIjNnoxTgAMBATD3VgatGQw157uLxSkz/l0Bzts+UBmcnMHQqTZBaOd81iTorxNUCH/mMHhC5/yQToch1XxI2rvL6KwMvi3oRCfLHKmVwfgsBMBkVGXw5CwEwDx0VWoQ+hw4ohk/ltOmUf4K/AuspcI4UwbeA7xZMCjTSvMHgSuBsz0dPcENWJwG3AJ8lMPxXzQtnsMcxVqVi++4mSWe06A056nufuAppblx/gvgPGffzAmX654JHbOTGn5amh32AVfpCbJnqe5rgReBU/X76cD9wA+Bch9VmfU01b0OONaBXPPP2NhtqjspuHyq+9wCzwJp64UYZEnDo7qTkjh/l+p+uICzrt5+HZUmC7aXHYSRFAN8zr9fzrvI4vwt1d0nh/I47us1WKRluYWFsajuxFmuEReoIZnrn3h02NacVPfFOQPgO28otp+Ae+kC1Z2kcP6mkz8GPCTqeySA83cZ4ncynPf1LlTzNLPFRd2gupMUzt9isc5sU9MhnP+ODII1Te81CvgKBcCUYVSqO9FyU9xiv0bZb4CzAjl/S3U3nFLKo3ePOMbfnKHqDGd/sGhDHM4w2OX8LfbpweeZNnsDAVT3qwF6R3X9eRGtZqR+wtmfX5RCH8swdpmnxKbe0zKiUYDzt1T3zQEZ8ICu24x7y2Ojh5QlpVHdicf5r9YLz7uVbmZO/66NvE0BVPeKHHotVur6rcA8NdsJT+/7RQLQyjB23OnCX3p7huUtwvlbqntJDr2u7Ld1nE7qnjs8vV+VTXUnWpbuNgPIncCz6vZFOf8TTknl0ese19tUtle00ftHrABMlcz55w1AqN5C7xBaOY0uk/O3JbC0ZL3NGE0wibBs87okktwgjM5CAAwDZHBbJLlBWDMLAVgl3a9EkhuEvoyRtOzV1PA0T3NF2XILYWcXA3CfdG6MJLcQBoHDXXD+iM7yRgpl3qncjrDBoa9jrGnnW6HNkeR2jN0RA2BIFPs67WgEuaWgIQKzbOdfk2zTcN+LILdUNJQJZZTDtL4StUZeHUluFKwXh1fUyMMptWneAP8YQW4UDIrDawYY2NSRNNN3vosk91jJcqOhIUJkrx5AmnqKPKmfD2gMXRWYlgN6i7xHc/whfRTVqdwaNWrUqFGD//Ef6r22H/IksjsAAAAASUVORK5CYII="
+          alt="lotto"
+        />
+        <h3>Lotto</h3>
+      </div>
+      <a href="dangchum.html">지난 회차 당첨 번호 보기</a>
+    </div>
+
+    <div class="machine">
+      <div class="circle1">
+        <div class="inner-circle"></div>
+        <p>Lotto</p>
+      </div>
+      <div class="triangle"></div>
+    </div>
+
+    <h2 id="lottoNum"></h2>
+    <input
+      class="button"
+      type="button"
+      value="로또 번호 추첨"
+      onclick="getLotto()"
+    />
+  </body>
+</html>
